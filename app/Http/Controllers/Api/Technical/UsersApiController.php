@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Tenant;
+namespace App\Http\Controllers\Api\Technical;
 
 use App\Http\Controllers\Controller; 
-use App\Http\Resources\Tenant\TenantResource; 
+use App\Http\Resources\Technical\UserResource; 
 use App\Traits\api_return;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +15,7 @@ class UsersApiController extends Controller
     
     public function profile()
     {
-        return $this->returnData(new TenantResource(Auth::user()));
+        return $this->returnData(new UserResource(Auth::user()));
     } 
     
     public function update_fcm_token(Request $request){

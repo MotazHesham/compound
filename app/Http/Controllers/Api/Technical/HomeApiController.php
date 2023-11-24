@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\Tenant;
+namespace App\Http\Controllers\Api\Technical;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Tenant\CategoryResource;
-use App\Http\Resources\Tenant\OrderResource;
-use App\Http\Resources\Tenant\SliderResource;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\OrderResource;
+use App\Http\Resources\SliderResource;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Slider;

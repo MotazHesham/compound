@@ -87,12 +87,14 @@ class exchangeOrderController extends Controller
      */
     public function save_exchangeOrder($request, $exchangeOrder)
     {
-        $exchangeOrder->piece_id = $request->piece_id;
-        $exchangeOrder->admin_id = $request->admin_id;
-        $exchangeOrder->technical_id = $request->technical_id;
-        $exchangeOrder->order_id = $request->order_id;
-        $exchangeOrder->quantity = $request->quantity;
-        $exchangeOrder->type = $request->type;
+        // $exchangeOrder->piece_id = $request->piece_id;
+        // $exchangeOrder->admin_id = $request->admin_id;
+        // $exchangeOrder->technical_id = $request->technical_id;
+        // $exchangeOrder->order_id = $request->order_id;
+        // $exchangeOrder->quantity = $request->quantity;
+        // $exchangeOrder->type = $request->type;
+        $exchangeOrder->price = $request->price;
+        $exchangeOrder->status = $request->status;
         $exchangeOrder->save();
     }
 
@@ -163,6 +165,15 @@ class exchangeOrderController extends Controller
             return $data->admin ? $data->admin->name : '';
         })->addColumn('piece_id', function ($data) {
             return $data->Piece ? $data->Piece->name : '';
+        })->editColumn('images', function ($data) {
+            $images = $data->description . '<br>';
+            if($data->images && json_decode($data->images)){
+                foreach(json_decode($data->images) as $image){
+                    $images .= '<a style="padding:2px" href="'. get_baseUrl() .  str_replace('public','/public/storage',$image) .'" target="_blank">'
+                        .'<img  src="'. get_baseUrl() . str_replace('public','/public/storage',$image) . '" width="50px" height="50px"></a>';
+                }
+            }
+            return $images;
         })->addColumn('technical_id', function ($data) {
             return $data->order->technical ? $data->order->technical->name : '';
         })->editColumn('villa_id', function ($data) {
@@ -172,9 +183,11 @@ class exchangeOrderController extends Controller
                 $status = '<button class="btn waves-effect waves-light btn-rounded btn-info statusBut" >'.trans('admins.in_review').'</button>';
             if ($data->status == 2)
                 $status = '<button class="btn waves-effect waves-light btn-rounded btn-danger statusBut" >'.trans('admins.unacceptable').'</button>';
-            if ($data->status == 1)
+            if ($data->status == 1){
                 $status = '<button class="btn waves-effect waves-light btn-rounded btn-success statusBut" >'.trans('admins.acceptable').'</button>';
+                $status .= $data->price ? ' <br> السعر:' . $data->price : '';
+            }
             return $status;
-        })->rawColumns(['action' => 'action', 'checkBox' => 'checkBox', 'status' => 'status'])->make(true);
+        })->rawColumns(['action' => 'action', 'checkBox' => 'checkBox', 'status' => 'status','images' => 'images'])->make(true);
     }
 }

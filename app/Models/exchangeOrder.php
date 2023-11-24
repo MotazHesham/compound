@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class exchangeOrder extends Model
 {
+    public const STATUS_SELECT = [
+        '1' => 'مقبولة',
+        '2' => 'غير مقبولة', 
+        '3' => 'قيد المراجعة', 
+    ];
+    public const TYPE_SELECT = [
+        '1' => 'جديدة',
+        '2' => 'مستعملة',  
+    ];
     public function admin(){
         return $this->belongsTo(Admin::class,'admin_id');
     }

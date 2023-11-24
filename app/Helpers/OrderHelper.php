@@ -29,7 +29,8 @@ function orderStatuses($type)
             ['name' => trans('Tenant.OrderTech'), 'id' => 3,'class'=>'secondary'],
             ['name' => trans('Tenant.OrderProgress'), 'id' => 4,'class'=>'info'],
             ['name' => trans('Tenant.OrderDone'), 'id' => 5,'class'=>'success'],
-            ['name' => trans('Tenant.OrderCancel'), 'id' => 6,'class'=>'danger'],
+            ['name' => trans('Tenant.OrderRate'), 'id' => 6,'class'=>'success'],
+            ['name' => trans('Tenant.OrderCancel'), 'id' => 7,'class'=>'danger'],
         ];
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Tenant;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Controllers\Manage\BaseController;

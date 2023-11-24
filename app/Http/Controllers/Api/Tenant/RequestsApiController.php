@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api\Tenant;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OrderResource;
+use App\Http\Resources\Tenant\OrderResource;
+use App\Models\Admin;
 use App\Models\Order;
 use App\Models\Rate;
+use App\Models\TechnicalRate;
 use Illuminate\Http\Request;
 use App\Traits\api_return;
 use Illuminate\Support\Facades\Auth;
@@ -120,6 +122,38 @@ class RequestsApiController extends Controller
             'status' => 1,
         ]);    
         
+        return $this->returnSuccessMessage(trans('global.flash.api.success'));
+    } 
+
+    public function rate_technical(Request $request){
+        
+        $rules = [   
+            'technical_id' => 'integer|required',
+            'order_id' => 'integer|required',
+            'rate'=> 'integer|required|in:1,2,3,4,5', 
+            'review'=> 'required', 
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        }  
+        
+        if(!order::where('tenant_id',Auth::id())->first() || !Admin::where('id',$request->technical_id)->first()){
+            return $this->returnError('500','خطأ في البيانات');
+        }
+        if(TechnicalRate::where('tenant_id',Auth::id())->where('order_id',$request->order_id)->first()){
+            return $this->returnError('500','لقد قمت بتقييمه من قبل');
+        }
+        $rateTechnical = new TechnicalRate();
+        $rateTechnical->technical_id = $request->technical_id;
+        $rateTechnical->order_id = $request->order_id;
+        $rateTechnical->rate = $request->rate;
+        $rateTechnical->review = $request->review;
+        $rateTechnical->tenant_id = Auth::id();
+        $rateTechnical->save();
+
         return $this->returnSuccessMessage(trans('global.flash.api.success'));
     }
 }

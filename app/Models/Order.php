@@ -45,6 +45,7 @@ class order extends Model
         '4' => 'قيد التنفيذ',
         '5' => 'تم الأكتمال',
         '6' => 'تم التقييم',
+        '7' => 'تم الألغاء',
     ];
     public const SERVICE_TYPE_SELECT = [
         '1' => 'صيانة دورية',

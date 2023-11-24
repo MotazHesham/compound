@@ -81,6 +81,7 @@
                                         <th>{{arabicSingleWords(). trans('admins.singleVilla')}}</th>
                                         <th>{{trans('admins.Order_number')}}</th>
                                         <th>{{ trans('basic.status')}}</th>
+                                        <th>الصور</th>
                                         <th>{{trans('basic.options')}}</th>
 
                                     </tr>

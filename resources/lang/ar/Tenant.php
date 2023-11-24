@@ -9,6 +9,7 @@ return [
     'OrderProgress'=>'قيد التنفيذ',
     'OrderDone'=>'مكتمل',
     'OrderCancel'=>'ملغي',
+    'OrderRate'=>'تم التقييم',
     'completed'=>'مكتملة',
     'canceled'=>'ملغية'
 

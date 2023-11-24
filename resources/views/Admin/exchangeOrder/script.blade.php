@@ -33,6 +33,7 @@
             {data: 'villa_id', name: 'villa_id'},
             {data: 'order_id', name: 'order_id'},
             {data: 'status', name: 'status'},
+            {data: 'images', name: 'images'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -118,7 +119,7 @@
     $('#ExchangeForm').submit(function (e) {
         e.preventDefault();
         sendAjaxForm("{{route('exchangeOrder.create')}}",'ExchangeModel','saveExchange','ExchangeForm');
-    })
+    }) 
 </script>
 
 {{--Destroy Functions--}}
@@ -135,15 +136,27 @@
 
 
     function changeStatus(id,status) {
-        Toset('{{trans('basic.wait')}}','info','{{trans('basic.progress')}}',false);
-        $.ajax({
-            url : '/Admin/exchangeOrder/ChangeStatus/' +id +'?status='+status,
-            type : 'get',
-            success : function(data){
-                $.toast().reset('all');
-                table.ajax.reload();
-                Toset('order status changed successfully','success','',5000);
-            }
-        })
-    }
+        if(status == '1'){ 
+            save_method = 'update';
+            $('#save').text('{{trans('basic.edit')}}');
+            $('#id').val(id);
+
+            $('#titleOfModel').text('قبول وتحديد سعر القطعة');
+
+            $('#formSubmit')[0].reset();
+
+            $('#formModel').modal(); 
+        }else{
+            Toset('{{trans('basic.wait')}}','info','{{trans('basic.progress')}}',false);
+            $.ajax({
+                url : '/Admin/exchangeOrder/ChangeStatus/' +id +'?status='+status,
+                type : 'get',
+                success : function(data){
+                    $.toast().reset('all');
+                    table.ajax.reload();
+                    Toset('order status changed successfully','success','',5000);
+                }
+            })
+        }
+    } 
 </script>

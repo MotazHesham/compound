@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Tenant;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RateResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,9 @@ class RateResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'rate' => $this->rate,
-            'review' => $this->review,
+            'id' => $this->id,
+            'name' => $this->name,
+            'image' => getImageUrl('Category',$this->image),
         ];
     }
 }

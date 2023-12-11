@@ -38,7 +38,17 @@ class UserAuthApiController extends Controller
             return $this->returnData(
                 [
                     'user_token' => $token,
+                    'user_type' => 'technical',
                     'user_id '=> Auth::guard('Admin')->id(), 
+                ]
+            ); 
+        }elseif (Auth::guard('Tenant')->attempt(['email' => $request->email, 'password' => $request->password])) { 
+            $token = Auth::guard('Tenant')->user()->createToken('user_token')->plainTextToken;  
+            return $this->returnData(
+                [
+                    'user_token' => $token,
+                    'user_type' => 'tenant',
+                    'user_id '=> Auth::guard('Tenant')->id(), 
                 ]
             ); 
         } else {
@@ -64,6 +74,7 @@ class UserAuthApiController extends Controller
             return $this->returnData(
                 [
                     'user_token' => $token->plainTextToken,
+                    'user_type' => 'technical',
                     'user_id '=> $tenant->id, 
                 ]
             ); 

@@ -25,6 +25,7 @@ class OrderResource extends JsonResource
             'service_type' => $this->type ? Order::SERVICE_TYPE_SELECT[$this->type] : '', 
             'time' => $this->time ? Order::TIMES_SELECT[$this->time] : '',
             'date' => $this->suggestDate,
+            'status_code' => $this->status ?? '',
             'status' => $this->status ? Order::STATUS_SELECT[$this->status] : '',
             'service' => $this->cat ? $this->cat->name : '', 
             'address' => $villa_number . ', ' . $compound_address,

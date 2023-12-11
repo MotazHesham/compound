@@ -7,7 +7,7 @@ use App\Http\Resources\Tenant\CategoryResource;
 use App\Http\Resources\Tenant\OrderResource;
 use App\Http\Resources\Tenant\SliderResource;
 use App\Models\Category;
-use App\Models\Order;
+use App\Models\order;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use App\Traits\api_return;

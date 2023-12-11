@@ -163,6 +163,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(),
                 Route::post('/assign', 'OrderController@assign')->name('Order.assign');
                 Route::post('/save_piece', 'OrderController@save_piece')->name('Order.save_piece');
                 Route::get('/destroy/{id}', 'OrderController@destroy')->name('Order.destroy');
+                Route::get('/confirm/invoice/{id}/{status}', 'OrderController@confirm_invoice')->name('Order.confirm_invoice');
                 Route::get('/show/{id}', 'OrderController@show')->name('Order.show');
                 Route::get('/ChangeStatus/{id}', 'OrderController@ChangeStatus')->name('Order.ChangeStatus');
             });

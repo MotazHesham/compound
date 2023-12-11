@@ -44,6 +44,7 @@ Route::group(['prefix' => 'tenant','as' => 'api.', 'namespace' => 'Api\Tenant', 
             Route::post('rate','RequestsApiController@rate'); 
             Route::post('add','RequestsApiController@add'); 
             Route::post('available_times','RequestsApiController@available_times'); 
+            Route::post('add_invoice','RequestsApiController@add_invoice'); 
             Route::delete('delete/{id}','RequestsApiController@delete');
         });
 

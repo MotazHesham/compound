@@ -32,9 +32,9 @@ Route::group(['prefix' => 'technical','as' => 'api.', 'namespace' => 'Api\Techni
         Route::group(['prefix' =>'requests'],function(){
             Route::get('/','RequestsApiController@requests'); 
             Route::post('status','RequestsApiController@status'); 
-            Route::post('add_invoice','RequestsApiController@add_invoice'); 
             Route::get('pieces','RequestsApiController@pieces'); 
             Route::get('closed','RequestsApiController@closed'); 
+            Route::get('open','RequestsApiController@open'); 
         });
         
         Route::post('add_part','RequestsApiController@add_part'); 

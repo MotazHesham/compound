@@ -17,8 +17,10 @@ class ExchangeOrdersResource extends JsonResource
     public function toArray($request)
     { 
         $images = [];
-        foreach(json_decode($this->images) as $image){
-            $images[] = get_baseUrl() . str_replace('public','/public/storage',$image);
+        if($this->images){
+            foreach(json_decode($this->images) as $image){
+                $images[] = get_baseUrl() . str_replace('public','/public/storage',$image);
+            }
         }
         return [
             'id' => $this->id,

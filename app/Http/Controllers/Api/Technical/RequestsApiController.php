@@ -36,6 +36,12 @@ class RequestsApiController extends Controller
         return $this->returnPaginationData($resource,$orders,'success'); 
     }  
 
+    public function open(){  
+        $orders = order::with(['tenant.villa.compound','exchangeOrders.Piece'])->where('technical_id',Auth::id())->whereIn('status',[1,2,3,4])->orderBy('updated_at','desc')->paginate(15);
+        $resource = OrderResource::collection($orders);  
+        return $this->returnPaginationData($resource,$orders,'success'); 
+    }  
+
     
     public function add_part(Request $request){
         
@@ -101,33 +107,6 @@ class RequestsApiController extends Controller
         $order->issue_description = $request->issue_description;
         $order->images = $images;
         $order->save();   
-        
-        return $this->returnSuccessMessage(trans('global.flash.api.success'));
-    }
-    
-    public function add_invoice(Request $request){
-        
-        $rules = [   
-            'part_id' => 'integer|required',
-            'bank_name'=> 'required',  
-            'date'=> 'required',  
-            'amount'=> 'required',  
-            'image'=> 'required',  
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if ($validator->fails()) {
-            return $this->returnError('401', $validator->errors());
-        }  
-
-
-        $exchangeOrder = exchangeOrder::find($request->part_id); 
-        $exchangeOrder->inv_image = $request->image->store('public/exchangeOrder/invoice_image');  
-        $exchangeOrder->inv_bank_name = $request->bank_name; 
-        $exchangeOrder->inv_amount = $request->amount; 
-        $exchangeOrder->inv_date = $request->date; 
-        $exchangeOrder->save();   
         
         return $this->returnSuccessMessage(trans('global.flash.api.success'));
     }

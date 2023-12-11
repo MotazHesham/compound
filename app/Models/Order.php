@@ -47,6 +47,12 @@ class order extends Model
         '6' => 'تم التقييم',
         '7' => 'تم الألغاء',
     ];
+    public const PAYMENT_STATUS_SELECT = [
+        'unpaid' => 'لم يتم الدفع',
+        'request_payment' => 'طلب دفع',
+        'review_payment' => 'قيد المراجعة',
+        'paid' => 'تم تأكيد الدفع', 
+    ];
     public const SERVICE_TYPE_SELECT = [
         '1' => 'صيانة دورية',
         '2' => 'صيانة طارئة', 

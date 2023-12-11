@@ -8,7 +8,7 @@ use App\Models\Piece;
 use App\Reposatries\OrderRepo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Order;
+use App\Models\order;
 use Yajra\DataTables\DataTables;
 use Auth, File;
 
@@ -94,6 +94,12 @@ class OrderController extends Controller
         $order->technical_id=$request->admin_id;
         $order->save();
         return $this->apiResponseMessage(1,'success',200);
+    }
+    function confirm_invoice(Request $request){
+        $order=Order::find($request->id);
+        $order->payment_status= $request->status; 
+        $order->save();
+        return redirect()->back();
     }
 
     /**

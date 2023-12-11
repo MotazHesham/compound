@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Api\Tenant;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Tenant\OrderResource;
 use App\Models\Admin;
-use App\Models\Order;
+use App\Models\exchangeOrder;
+use App\Models\order;
 use App\Models\Rate;
 use App\Models\TechnicalRate;
 use Illuminate\Http\Request;
@@ -154,6 +155,37 @@ class RequestsApiController extends Controller
         $rateTechnical->tenant_id = Auth::id();
         $rateTechnical->save();
 
+        return $this->returnSuccessMessage(trans('global.flash.api.success'));
+    }
+    
+    
+    public function add_invoice(Request $request){
+        
+        $rules = [   
+            'request_id' => 'integer|required',
+            'bank_name'=> 'required',  
+            'date'=> 'required',  
+            'amount'=> 'required',  
+            'image'=> 'required',  
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        }  
+
+
+        $order = Order::find($request->request_id); 
+        if($order->payment_status != 'paid'){
+            $order->inv_image = $request->image->store('public/order/invoice_image');  
+            $order->inv_bank_name = $request->bank_name; 
+            $order->inv_amount = $request->amount; 
+            $order->inv_date = $request->date; 
+            $order->payment_status = 'review_payment';
+            $order->save();   
+        }
+        
         return $this->returnSuccessMessage(trans('global.flash.api.success'));
     }
 }

@@ -33,7 +33,7 @@
                 </ul>
             </div>
             <br>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         client info
@@ -56,7 +56,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{trans('admins.singleVilla')}}
@@ -70,6 +70,39 @@
                         {{trans('admins.singleCompounds')}}
                         <span class="">{{$order->tenant->villa->compound->compound_name}}</span>
                     </li>
+
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        الفاتورة 
+                        @if($order->payment_status == 'paid')
+                            <span class="">تم تأكيد الفاتورة</span> 
+                        @elseif($order->payment_status == 'unpaid') 
+                            <a href="/Admin/Order/confirm/invoice/{{$order->id}}/request_payment" onclick="return confirm('Are you sure?')" class="btn btn-warning waves-effect waves-light">طلب دفع</a>
+                        @elseif($order->payment_status == 'request_payment')
+                            <span class="">   في انتظار الفاتورة من العميل</span>
+                        @elseif($order->payment_status == 'review_payment')
+                            <a href="/Admin/Order/confirm/invoice/{{$order->id}}/paid" onclick="return confirm('Are you sure?')" class="btn btn-warning waves-effect waves-light">تأكيد الفاتورة</a>
+                        @endif
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        اسم البنك
+                        <span class="">{{ $order->inv_bank_name}}</span>
+                    </li> 
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        التاريخ  
+                        <span class="">{{ $order->inv_date}}</span>
+                    </li> 
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        صورة الفاتورة
+                        <span class="">{{  $order->inv_image ? getImageUrl('order/invoice_image',$order->inv_image) :'' }}</span>
+                    </li> 
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        الأجمالي
+                        <span class="">{{ $order->inv_amount}}</span>
+                    </li> 
 
                 </ul>
             </div>

@@ -18,6 +18,28 @@ class RequestsApiController extends Controller
 {
     use api_return;    
 
+    public function get_token(Request $request){
+        
+        $rules = [    
+            'request_id' => 'required|integer', 
+            'email' => 'email|required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        } 
+
+        $order = Order::find($request->request_id);
+        $six_digit_random_number = random_int(100000, 999999);
+        $order->token = $six_digit_random_number;
+        $order->token_created_date = date('Y-m-d H:i:s');
+        $order->save();
+        
+        return $this->returnSuccessMessage(trans('global.flash.api.success'));
+    }
+
     public function upcoming(){  
         $orders = order::with('rate')->where('tenant_id',Auth::id())->whereIn('status',[1,2,3,4])->orderBy('updated_at','desc')->paginate(15);
         $resource = OrderResource::collection($orders);  

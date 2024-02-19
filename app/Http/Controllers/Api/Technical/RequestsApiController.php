@@ -11,6 +11,7 @@ use App\Models\Piece;
 use App\Models\Rate;
 use Illuminate\Http\Request;
 use App\Traits\api_return;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -89,14 +90,26 @@ class RequestsApiController extends Controller
             'status'=> 'required|in:4,5',  
         ];
 
+        if($request->status == '5'){
+            $rules['token'] = 'required|min:6|integer';
+        }
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
             return $this->returnError('401', $validator->errors());
         }  
 
-
         $order = order::find($request->request_id);
+
+        if($request->status == '5'){ 
+            if($order->token != $request->token){
+                return $this->returnError('401', 'invalid token!');
+            }elseif(Carbon::parse($order->token_created_at)->addMinutes(720)->isPast()){
+                return $this->returnError('401', 'Expired Token!');
+            }
+        }
+
         $images = [];
         if($request->has('images')){ 
             foreach ($request->images as $key => $image) { 

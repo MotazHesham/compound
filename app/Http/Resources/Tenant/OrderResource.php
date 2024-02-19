@@ -32,7 +32,7 @@ class OrderResource extends JsonResource
             'invoice' => $this->payment_status == 'request_payment' ? [
                 'total' => $this->exchangeOrders()->where('status',1)->where('part_from','warehouse')->sum('price') . ' SAR',
                 'data' =>InvoiceExchangeOrdersResource::collection($this->exchangeOrders()->where('status',1)->where('part_from','warehouse')->get())
-            ] : [],
+            ] : null,
         ];
     }
 }

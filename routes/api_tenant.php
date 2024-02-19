@@ -41,6 +41,7 @@ Route::group(['prefix' => 'tenant','as' => 'api.', 'namespace' => 'Api\Tenant', 
             Route::get('upcoming','RequestsApiController@upcoming');
             Route::get('completed','RequestsApiController@completed');
             Route::get('closed','RequestsApiController@closed');
+            Route::post('get_token','RequestsApiController@get_token'); 
             Route::post('rate','RequestsApiController@rate'); 
             Route::post('add','RequestsApiController@add'); 
             Route::post('available_times','RequestsApiController@available_times'); 

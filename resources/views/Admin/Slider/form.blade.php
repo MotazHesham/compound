@@ -19,6 +19,12 @@
                                 <input type="text" id="text" name="text" required class="form-control">
                             </div>
                         </div> 
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="example-email">Link</label>
+                                <input type="text" id="link" name="link" required class="form-control">
+                            </div>
+                        </div> 
 
 
                         <div class="col-md-6">

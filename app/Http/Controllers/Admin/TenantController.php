@@ -100,6 +100,9 @@ class TenantController extends Controller
         $Tenant->contractAmount =$request->contractAmount ;
         $Tenant->contractType =$request->contractType ;
         $Tenant->email =$request->email ;
+        if(isset($request->password)){
+            $Tenant->password = bcrypt($request->password) ;
+        }
         $Tenant->save();
     }
 

@@ -18,6 +18,31 @@ class UsersApiController extends Controller
         return $this->returnData(new UserResource(Auth::user()));
     } 
     
+    public function update_profile(Request $request){
+
+        $rules = [
+            'name' => 'string|required',
+            'email' => 'required|email|unique:admin,email,'.Auth::id(), 
+            'phone' => 'required',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return $this->returnError('401', $validator->errors());
+        }
+
+        $user = Auth::user();
+
+        if(!$user)  
+            return $this->returnError('404',trans('global.flash.api.not_found'));
+
+        $user->update($request->all());
+
+
+        return $this->returnSuccessMessage('User Updated Successfully');
+    }
+
     public function update_fcm_token(Request $request){
 
         $rules = [

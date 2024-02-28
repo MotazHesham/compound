@@ -12,6 +12,10 @@ class Tenant extends Authenticatable
 
     protected $guard = 'Tenant';
 
+    protected $fillable = [
+        'name', 'email', 'password','phone'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

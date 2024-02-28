@@ -33,6 +33,12 @@
                                 <input type="email" id="email" required name="email" class="form-control">
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="example-email">{{trans('admins.password')}}</label>
+                                <input type="password" id="password"   name="password" class="form-control">
+                            </div>
+                        </div>
 
                         <div class="col-md-6">
                             <div class="form-group">

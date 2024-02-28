@@ -42,6 +42,7 @@ Route::group(['prefix' => 'technical','as' => 'api.', 'namespace' => 'Api\Techni
         //user profile
         Route::group(['prefix' =>'profile'],function(){
             Route::get('/','UsersApiController@profile'); 
+            Route::post('update','UsersApiController@update_profile');  
         });
     });
 });

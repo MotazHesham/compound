@@ -210,4 +210,22 @@ class RequestsApiController extends Controller
         
         return $this->returnSuccessMessage(trans('global.flash.api.success'));
     }
+    
+    public function cancel($id){  
+
+        $order = Order::find($id); 
+        
+        if(!$order)  
+            return $this->returnError('404',trans('global.flash.api.not_found'));
+        
+        if($order->tenant_id != Auth::id()){
+            return $this->returnError('500','not auth');
+        }
+        if($order->suggestDate == date('Y-m-d')){
+            return $this->returnError('404','لا يمكن حذف الطلب في يوم الزيارة');
+        }
+        $order->delete();
+        
+        return $this->returnSuccessMessage(trans('global.flash.api.success'));
+    }
 }

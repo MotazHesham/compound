@@ -67,6 +67,7 @@
                 $('#formModel').modal(); 
                 $('#type').val(data.type);
                 $('#text').val(data.text); 
+                $('#link').val(data.link); 
                 $('#id').val(data.id);
             }
         });

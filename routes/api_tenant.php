@@ -46,7 +46,7 @@ Route::group(['prefix' => 'tenant','as' => 'api.', 'namespace' => 'Api\Tenant', 
             Route::post('add','RequestsApiController@add'); 
             Route::post('available_times','RequestsApiController@available_times'); 
             Route::post('add_invoice','RequestsApiController@add_invoice'); 
-            Route::delete('delete/{id}','RequestsApiController@delete');
+            Route::delete('cancel/{id}','RequestsApiController@cancel');
         });
 
         
@@ -55,6 +55,7 @@ Route::group(['prefix' => 'tenant','as' => 'api.', 'namespace' => 'Api\Tenant', 
         //user profile
         Route::group(['prefix' =>'profile'],function(){
             Route::get('/','UsersApiController@profile'); 
+            Route::post('update','UsersApiController@update_profile');  
         });
     });
 });

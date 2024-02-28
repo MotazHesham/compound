@@ -79,6 +79,7 @@ class SliderController extends Controller
      */
     public function save_Slider($request,$Slider,$quantity){
         $Slider->text=$request->text;
+        $Slider->link=$request->link;
         $Slider->type=$request->type; 
         if($request->image){
             deleteFile('Slider',$Slider->image);
